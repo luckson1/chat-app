@@ -42,10 +42,10 @@ const uniqueIdentifier= `${userName}${userId.slice(4,8)}`
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className="flex flex-row flex-wrap gap-2 w-11/12"
+      className="flex flex-row flex-wrap gap-1 md:gap-2 w-11/12"
     >
       <input
-        className="w-10/12 h-7 rounded-full p-2"
+        className=" w-6/12 md:w-8/12 h-7 rounded-full p-2"
         type="text"
         id="body"
         onChange={formik.handleChange("body")}
