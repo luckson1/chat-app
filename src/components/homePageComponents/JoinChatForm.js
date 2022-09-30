@@ -45,10 +45,10 @@ export const JoinChatForm = () => {
       <h1>Join Chat</h1>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-row flex-wrap gap-2 px-2"
+        className="flex flex-row flex-wrap justify-between px-2"
       >
         <input
-          className="form-row-input border-b-2 border-b-indigo-500 rounded-none"
+          className="w-48 border-b-2 border-b-indigo-500 rounded-none"
           type="text"
           id="userName"
           onChange={formik.handleChange("userName")}
