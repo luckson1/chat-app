@@ -15,7 +15,6 @@ export const JoinChatForm = () => {
     try {
       const data = await db.friends.add(values);
       sessionStorage.setItem("userData", JSON.stringify(values));
-      console.log(data);
       return data;
     } catch (error) {
       console.log(error);
