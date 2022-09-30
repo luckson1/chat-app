@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SecondaryButton } from "../buttons/SecondaryButton";
@@ -10,26 +9,28 @@ const errorSchema = Yup.object().shape({
 });
 export const AddChatForm = () => {
   //get id of loggedin User
-  const userDatFromStorage =sessionStorage.getItem("userData")  ? JSON.parse(sessionStorage.getItem("userData")): undefined;
+  const userDatFromStorage = sessionStorage.getItem("userData")
+    ? JSON.parse(sessionStorage.getItem("userData"))
+    : undefined;
 
-  const {userId, userName}= userDatFromStorage
-//create a unique identifier
-const uniqueIdentifier= `${userName}${userId.slice(4,8)}`
+  const { userId, userName } = userDatFromStorage;
+  //create a unique identifier
+  const uniqueIdentifier = `${userName}${userId.slice(4, 8)}`;
 
   //handle adding task
   const addMessageHandler = async (values) => {
     try {
       const data = await db.messages.add(values);
-      return data
+      return data;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   const formik = useFormik({
     initialValues: {
       body: "",
       alias: uniqueIdentifier,
-      creator: userId
+      creator: userId,
     },
 
     onSubmit: (values, { resetForm }) => {

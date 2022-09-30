@@ -25,7 +25,6 @@ export const MessageBody = () => {
             ))
           : "No Messages to display"}
         <div className="mt-5">
-        
           <Button
             bgColor="bg-green-500"
             text="Load more"
