@@ -3,19 +3,37 @@ import { v4 as uuidv4 } from "uuid";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { SecondaryButton } from "../buttons/SecondaryButton";
+import { db } from "../../utils/Database";
 
 const errorSchema = Yup.object().shape({
-  messageBody: Yup.string().required("Name is Required"),
+  body: Yup.string().required("Name is Required"),
 });
 export const AddChatForm = () => {
+  //get id of loggedin User
+  const userDatFromStorage =sessionStorage.getItem("userData")  ? JSON.parse(sessionStorage.getItem("userData")): undefined;
+
+  const {userId, userName}= userDatFromStorage
+//create a unique identifier
+const uniqueIdentifier= `${userName}${userId.slice(4,8)}`
+
+  //handle adding task
+  const addMessageHandler = async (values) => {
+    try {
+      const data = await db.messages.add(values);
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  };
   const formik = useFormik({
     initialValues: {
-      messageBody: "",
-      messageId: uuidv4(),
+      body: "",
+      alias: uniqueIdentifier,
+      creator: userId
     },
 
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      addMessageHandler(values);
       resetForm({ values: "" });
     },
     validationSchema: errorSchema,
@@ -29,10 +47,10 @@ export const AddChatForm = () => {
       <input
         className="w-10/12 h-7 rounded-full p-2"
         type="text"
-        id="messageBody"
-        onChange={formik.handleChange("messageBody")}
-        onBlur={formik.handleBlur("messageBody")}
-        value={formik.values.messageBody}
+        id="body"
+        onChange={formik.handleChange("body")}
+        onBlur={formik.handleBlur("body")}
+        value={formik.values.body}
         placeholder="Enter a message"
       />
       <SecondaryButton bgColor="bg-teal-900" text="Add Message" type="submit" />
