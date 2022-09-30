@@ -9,7 +9,12 @@ export const Nav = () => {
 
 
   const navigate = useNavigate();
-const userLogin=true
+  const userDatFromStorage =sessionStorage.getItem("userData")  ? JSON.parse(sessionStorage.getItem("userData")): undefined;
+
+const userLogin= userDatFromStorage?.userId
+const handleLeaveChat= ()=>{
+  sessionStorage.removeItem("userData");
+navigate("/")}
 
 
 
@@ -49,6 +54,7 @@ const userLogin=true
             size="lg"
            bgColor="bg-red-600"
            text="Exit Chat"
+           onClick={()=>handleLeaveChat()}
            
           />}
            
