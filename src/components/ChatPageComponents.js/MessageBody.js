@@ -7,7 +7,7 @@ import { Button } from "../index";
 export const MessageBody = () => {
   //handle scrolling
 
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(25);
   //use useLiveQuery for real time data fetching
 
   let messages = useLiveQuery(
@@ -18,7 +18,7 @@ export const MessageBody = () => {
   return (
     <>
       <p className="my-1 text-2xl">Chat Room</p>
-      <div className="my-5  bg-white w-full md:w-11/12 h-4/6 rounded-l m-auto flex flex-col items-center gap-1 mb-0 overflow-scroll">
+      <div className="my-5  bg-white w-full md:w-11/12 h-4/6 rounded-l m-auto flex flex-col-reverse items-center gap-1 mb-0 overflow-scroll">
         {messages?.length
           ? messages?.map((message) => (
               <ChatCard message={message} key={message?.id} />
